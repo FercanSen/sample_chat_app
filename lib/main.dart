@@ -13,7 +13,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ChatFero',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
+        backgroundColor: Colors.indigo,
+        accentColor: Colors.amberAccent,
+        primaryColorBrightness: Brightness.dark,
+        buttonTheme: ButtonTheme.of(context).copyWith(
+            buttonColor: Colors.indigo,
+            textTheme: ButtonTextTheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            )),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: AuthScreen(),
