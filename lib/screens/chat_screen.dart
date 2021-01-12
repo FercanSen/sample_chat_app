@@ -8,7 +8,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       body: StreamBuilder(
         stream: Firestore.instance
-            .collection("chats/KWnwIpUApvljJuNn66EN/messages")
+            .collection("chats/eLhUvpC6cwUctDqAZMRV/messages")
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
