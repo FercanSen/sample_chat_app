@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:sample_chat_app/widgets/auth/auth_form.dart';
 
@@ -27,6 +29,13 @@ class _AuthScreenState extends State<AuthScreen> {
           email: email,
           password: password,
         );
+        await Firestore.instance
+            .collection("users")
+            .document(authResult.user.uid)
+            .setData({
+          "username": username,
+          "email": email,
+        });
       }
     } on PlatformException catch (error) {
       var message = "An error ocurredi please check your credentials!";
