@@ -102,17 +102,18 @@ class _AuthFormState extends State<AuthForm> {
                       child: Text(isLogin ? "Login" : "Sign Up"),
                       onPressed: _trySubmit,
                     ),
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
-                    child: Text(isLogin
-                        ? "Create New Account"
-                        : "I already have an acoount"),
-                    onPressed: () {
-                      setState(() {
-                        isLogin = !isLogin;
-                      });
-                    },
-                  )
+                  if (!widget.isLoading)
+                    FlatButton(
+                      textColor: Theme.of(context).primaryColor,
+                      child: Text(isLogin
+                          ? "Create New Account"
+                          : "I already have an acoount"),
+                      onPressed: () {
+                        setState(() {
+                          isLogin = !isLogin;
+                        });
+                      },
+                    )
                 ],
               ),
             ),
