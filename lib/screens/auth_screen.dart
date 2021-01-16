@@ -13,12 +13,16 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final _auth = FirebaseAuth.instance;
+  var _isLoading = false;
 
   void _submitAuthForm(String email, String password, String username,
       bool isLogin, BuildContext myContext) async {
     AuthResult authResult;
 
     try {
+      setState(() {
+        _isLoading = true;
+      });
       if (isLogin) {
         authResult = await _auth.signInWithEmailAndPassword(
           email: email,
@@ -50,7 +54,13 @@ class _AuthScreenState extends State<AuthScreen> {
           backgroundColor: Theme.of(myContext).errorColor,
         ),
       );
+      setState(() {
+        _isLoading = false;
+      });
     } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
       print(error);
     }
   }
@@ -59,7 +69,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: AuthForm(_submitAuthForm),
+      body: AuthForm(_submitAuthForm, _isLoading),
     );
   }
 }
