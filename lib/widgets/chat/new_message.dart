@@ -15,6 +15,7 @@ class _NewMessageState extends State<NewMessage> {
     FocusScope.of(context).unfocus(); // CLose the keybord
     Firestore.instance.collection("chat").add({
       "text": _enteredMessage,
+      "createTime": Timestamp.now(),
     });
     _controller.clear();
   }
