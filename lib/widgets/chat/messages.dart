@@ -15,6 +15,8 @@ class Messages extends StatelessWidget {
         }
         final chatDocs = snapshot.data.documents;
         return ListView.builder(
+          reverse: true,
+          // Reverses the order, in this case: messages will be shown bottom to the top
           itemCount: chatDocs.length,
           itemBuilder: (context, index) => Text(chatDocs[index]["text"]),
         );
