@@ -60,9 +60,10 @@ class _AuthScreenState extends State<AuthScreen> {
           "email": email,
           "image_url": url,
         });
+        print("data is set");
       }
     } on PlatformException catch (error) {
-      var message = "An error ocurredi please check your credentials!";
+      var message = "An error ocurred, please check your credentials!";
 
       if (error.message != null) {
         message = error.message;

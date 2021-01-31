@@ -4,66 +4,83 @@ class MessageBubble extends StatelessWidget {
   MessageBubble(
     this.message,
     this.username,
+    this.userImageURL,
     this.isMe,
   );
 
   final String message;
   final String username;
+  final String userImageURL;
   final bool isMe;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+    return Stack(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            color: isMe ? Colors.blueGrey[100] : Theme.of(context).accentColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-              bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(12),
-              bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
+        Row(
+          mainAxisAlignment:
+              isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color:
+                    isMe ? Colors.blueGrey[100] : Theme.of(context).accentColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                  bottomLeft: !isMe ? Radius.circular(0) : Radius.circular(12),
+                  bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
+                ),
+              ),
+              // constraints: BoxConstraints(
+              //   maxWidth: 250,
+              // ),
+              width: 140,
+              margin: EdgeInsets.symmetric(
+                vertical: 4,
+                horizontal: 8,
+              ),
+              padding: EdgeInsets.symmetric(
+                vertical: 16,
+                horizontal: 16,
+              ),
+              child: Column(
+                crossAxisAlignment:
+                    isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    username,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: isMe
+                          ? Colors.black
+                          : Theme.of(context).accentTextTheme.headline1.color,
+                    ),
+                  ),
+                  Text(
+                    message,
+                    style: TextStyle(
+                      color: isMe
+                          ? Colors.black
+                          : Theme.of(context).accentTextTheme.headline1.color,
+                    ),
+                    textAlign: isMe ? TextAlign.end : TextAlign.start,
+                  ),
+                ],
+              ),
             ),
-          ),
-          // constraints: BoxConstraints(
-          //   maxWidth: 250,
-          // ),
-          width: 140,
-          margin: EdgeInsets.symmetric(
-            vertical: 4,
-            horizontal: 8,
-          ),
-          padding: EdgeInsets.symmetric(
-            vertical: 10,
-            horizontal: 16,
-          ),
-          child: Column(
-            crossAxisAlignment:
-                isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            children: [
-              Text(
-                username,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isMe
-                      ? Colors.black
-                      : Theme.of(context).accentTextTheme.headline1.color,
-                ),
-              ),
-              Text(
-                message,
-                style: TextStyle(
-                  color: isMe
-                      ? Colors.black
-                      : Theme.of(context).accentTextTheme.headline1.color,
-                ),
-                textAlign: isMe ? TextAlign.end : TextAlign.start,
-              ),
-            ],
+          ],
+        ),
+        Positioned(
+          left: isMe ? null : 120,
+          right: isMe ? 120 : null,
+          top: 0,
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(userImageURL),
           ),
         ),
       ],
+      overflow: Overflow.visible,
     );
   }
 }

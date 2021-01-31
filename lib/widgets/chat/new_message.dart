@@ -22,8 +22,10 @@ class _NewMessageState extends State<NewMessage> {
       "createTime": Timestamp.now(),
       "userId": user.uid,
       "username": userData["username"],
+      "userImage": userData["image_url"]
     });
     _controller.clear();
+    print("Message sent");
   }
 
   @override
